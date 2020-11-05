@@ -1,0 +1,12 @@
+FROM node:alpine
+
+WORKDIR '/app'
+
+COPY package.json .
+# Node Modules folder in local code not needed because container always installs
+# dependencies from package.json
+RUN npm install
+
+COPY . .
+
+CMD ["npm", "run", "start"]
