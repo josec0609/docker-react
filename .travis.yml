@@ -1,4 +1,4 @@
-# language: generic
+language: generic
 sudo: required
 services:
   - docker
@@ -8,3 +8,15 @@ before_install:
 
 script:
   - docker run -e CI=true josec0609/docker-react npm run test
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "docker-react"
+  env: "DockerReact-env"
+  bucket_name: "elasticbeanstalk-us-east-2-639853745531"
+  bucket_path: "docker-react"
+  on: # only deploy when a commit has been made to master branch
+    branch: master 
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
